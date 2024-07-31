@@ -1,7 +1,3 @@
-# docker run -d --name m295_db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=wiss_quiz -e MYSQL_PASSWORD=wiss_quiz -e MYSQL_DATABASE=wiss_quiz -p 3306:3306 mysql:8
-
-version: '3.8'
-
 services:
   wiss_quiz_db:
     image: mysql:8.0
