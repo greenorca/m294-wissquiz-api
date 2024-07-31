@@ -1,0 +1,34 @@
+# docker run -d --name m295_db -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=wiss_quiz -e MYSQL_PASSWORD=wiss_quiz -e MYSQL_DATABASE=wiss_quiz -p 3306:3306 mysql:8
+
+version: '3.8'
+
+services:
+  wiss_quiz_db:
+    image: mysql:8.0
+    container_name: wiss_quiz_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wiss_quiz
+      MYSQL_USER: wiss_quiz
+      MYSQL_PASSWORD: wiss_quiz
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+  springboot-app:
+    #image: springboot-app:latest
+    image: greenorca/wissquiz-api:1.0
+    container_name: springboot-app-container
+    #build:
+    #  context: ./springboot-app
+    #  dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://wiss_quiz_db:3306/wiss_quiz?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: wiss_quiz
+      SPRING_DATASOURCE_PASSWORD: wiss_quiz
+      DB_HOST: wiss_quiz_db
+    depends_on:
+      - wiss_quiz_db
