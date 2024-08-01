@@ -2,7 +2,6 @@ package ch.wiss.wiss_quiz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,7 @@ import ch.wiss.wiss_quiz.model.Category;
 import ch.wiss.wiss_quiz.model.CategoryRepository;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)@RestController // This means that this class is a Controller
+@RestController // This means that this class is a Controller
 @RequestMapping(path = "/category") // This means URL's start with /demo (after Application path)
 public class CategoryController {
 	@Autowired
