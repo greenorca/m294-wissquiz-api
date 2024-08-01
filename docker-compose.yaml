@@ -16,9 +16,9 @@ services:
     #image: springboot-app:latest
     image: greenorca/wissquiz-api:1.0
     container_name: springboot-app-container
-    #build:
-    #  context: ./springboot-app
-    #  dockerfile: Dockerfile
+    build:
+      context: ./springboot-app
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
