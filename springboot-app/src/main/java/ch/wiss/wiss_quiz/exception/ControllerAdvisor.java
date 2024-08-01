@@ -17,31 +17,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 /**
  * This class handles Exceptions thrown by the application and returns well
  * formed JSON responses instead.
- * 
+ *
  * @author Patrick Meier
  *
  */
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-
-	@Override
-	protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		return createDefaultErrorResponse(ex.getMessage());
-	}
-
-	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		Map<String, String> errors = new HashMap<>();
-		ex.getBindingResult().getAllErrors().forEach((error) -> {
-			String fieldName = ((FieldError) error).getField();
-			String errorMessage = error.getDefaultMessage();
-			errors.put(fieldName, errorMessage);
-		});
-
-		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-	}
 
 	@ExceptionHandler(AnswerCouldNotBeSavedException.class)
 	public ResponseEntity<Object> handleAnswerCouldNotBeSavedException(AnswerCouldNotBeSavedException ex,
